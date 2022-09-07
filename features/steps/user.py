@@ -75,22 +75,14 @@ def step_impl(context, key):
 
 @when('I add user "{user}" with name "{name_user}"')
 def step_impl(context, user, name_user):
-    # print(new_user)
+
     context.headers = {"content-type": "application/json"}
     context.url = "/users/"
     context.body = {user: {"name": name_user}}
 
-    # context.response = requests.session().post(context.url, data=json.dumps(context.body), headers=context.headers)
-
     context.page = context.client.post(
         context.url, data=json.dumps(context.body), headers=context.headers
     )
-
-    # context.client.get('/users/aylen')
-
-
-# print(context.res.text)
-# context.res = requests.post(url, data=json.dumps(new_user), headers=headers)
 
 
 @then("I should insert correctly to user 'aylen'")
@@ -132,14 +124,6 @@ def step_impl(context):
     response = json.loads(context.page.text)
 
     assert name == response and context.page.status_code == 200
-
-
-""" @then(u'the following data is returned')
-def step_impl(context):
-    resquest = context.body
-    response = json.loads(context.page.text)
-    print(response)
-    assert response['name'] == resquest['name'] """
 
 
 # -------------------- DELETE --------------------
